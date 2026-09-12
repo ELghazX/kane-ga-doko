@@ -1,15 +1,15 @@
 # Kane ga doko.
 
-Aplikasi pencatatan piutang dan hutang dengan desain antarmuka bergaya Apple HIG (iOS).
+Aplikasi pencatatan piutang dan hutang yang bersih dan minimalis.
 Proyek ini dibangun menggunakan arsitektur monorepo yang berisi:
 - **Backend:** Golang + SQLite (menggunakan `net/http`).
 - **Frontend:** SvelteKit 5 (Vite) + Tailwind CSS + Lucide Icons.
 
 ## Fitur Utama
 - **Dashboard:** Ringkasan total piutang, hutang, dan riwayat yang sudah lunas.
-- **Pencatatan Utang/Piutang:** Antarmuka intuitif bergaya iOS untuk mencatat pinjaman.
+- **Pencatatan Utang/Piutang:** Antarmuka intuitif untuk mencatat pinjaman.
 - **Daftar Kontak:** Sistem pertemanan sepihak untuk menyaring daftar pilihan pengguna saat mencatat pinjaman.
-- **Persetujuan Pembayaran:** Konfirmasi atau tolak pelunasan. Dilengkapi dengan efek suara khas Apple Pay saat pembayaran diterima.
+- **Persetujuan Pembayaran:** Konfirmasi atau tolak pelunasan.
 - **Manajemen Pengguna (Admin):** Sistem pendaftaran mandiri yang membutuhkan persetujuan Admin sebelum pengguna baru dapat masuk (login). Admin juga dapat mengubah *password* atau menghapus pengguna.
 - **Deployment-Ready:** Tersedia `Dockerfile.backend` dan `Dockerfile.frontend` yang sudah dikonfigurasi khusus untuk *environment* produksi seperti Dokploy.
 
