@@ -1,0 +1,26 @@
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+COPY frontend/package*.json ./
+RUN npm ci
+
+# Swap adapter-auto with adapter-node for standalone server deployment
+RUN npm install -D @sveltejs/adapter-node
+
+COPY frontend/ ./
+# Replace adapter in vite config
+RUN sed -i "s/@sveltejs\/adapter-auto/@sveltejs\/adapter-node/g" vite.config.ts
+
+# Build the SvelteKit app
+RUN npm run build
+
+# Final minimal image
+FROM node:20-alpine
+
+WORKDIR /app
+COPY --from=builder /app/build ./build
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app/node_modules ./node_modules
+
+EXPOSE 3000
+CMD ["node", "build/index.js"]
