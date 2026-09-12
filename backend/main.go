@@ -7,6 +7,7 @@ import (
 	"kane-ga-doko/handlers"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -72,7 +73,11 @@ func seedAdmin() {
 }
 
 func main() {
-	database.InitDB("database.sqlite")
+	dbPath := os.Getenv("DB_PATH")
+	if dbPath == "" {
+		dbPath = "database.sqlite"
+	}
+	database.InitDB(dbPath)
 	defer database.DB.Close()
 
 	seedAdmin()
