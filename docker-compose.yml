@@ -1,28 +1,43 @@
 version: '3.8'
 
 services:
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - frontend
+      - backend
+
   backend:
     build:
       context: .
       dockerfile: Dockerfile.backend
     container_name: kane_backend
-    ports:
-      - "8080:8080"
+    restart: unless-stopped
     environment:
       - DB_PATH=/data/database.sqlite
     volumes:
       - ./data:/data
-    restart: unless-stopped
 
   frontend:
     build:
       context: .
       dockerfile: Dockerfile.frontend
     container_name: kane_frontend
-    ports:
-      - "3000:3000"
+    restart: unless-stopped
     environment:
       - PORT=3000
     depends_on:
       - backend
-    restart: unless-stopped
+
+volumes:
+  caddy_data:
+  caddy_config:

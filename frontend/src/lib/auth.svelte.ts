@@ -35,4 +35,4 @@ export function logout() {
 	}
 }
 
-export const API_URL = browser ? `http://${window.location.hostname}:8080/api` : "http://localhost:8080/api";
+export const API_URL = "/api";

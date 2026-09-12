@@ -1,0 +1,11 @@
+kanedoko.elghazali.my.id {
+    # Proxy /api* to backend container
+    handle /api* {
+        reverse_proxy backend:8080
+    }
+
+    # Proxy everything else to frontend container
+    handle {
+        reverse_proxy frontend:3000
+    }
+}
